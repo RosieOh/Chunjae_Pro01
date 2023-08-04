@@ -1,29 +1,29 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" language="java" %>
 <%
-    String path1 = request.getContextPath();
+    String path8 = request.getContextPath();
     String sid = (String) session.getAttribute("id");
 %>
 <div class="hd_wrap">
     <nav class="tnb">
         <ul class="menu">
             <% if(sid!=null) { %>
-            <li><a href="<%=path1 %>/member/logout.jsp">로그아웃</a></li>
-            <li><a href="<%=path1 %>/member/mypage.jsp">마이페이지</a></li>
-            <li><a href="map.jsp">오시는 길</a></li>
-                <% if(sid.equals("admin")) { %>
-                <li><a href="<%=path1 %>/admin/index.jsp">관리자페이지로</a></li>
-                <% } %>
+                <li><a href="<%=path8 %>/member/logout.jsp">로그아웃</a></li>
+                <li><a href="<%=path8 %>/member/myPage.jsp">마이페이지</a></li>
+                <li><a href="map.jsp">오시는길</a></li>
+                    <% if(sid.equals("admin")) { %>
+                    <li><a href="<%=path8 %>/admin/index.jsp">관리자페이지로</a></li>
+                    <% } %>
             <% } else { %>
-            <li><a href="<%=path1 %>/member/login.jsp">로그인</a></li>
-            <li><a href="<%=path1 %>/member/term.jsp">회원가입</a></li>
-            <li><a href="map.jsp">오시는 길</a></li>
+                <li><a href="<%=path8 %>/member/login.jsp">로그인</a></li>
+                <li><a href="<%=path8 %>/member/term.jsp">회원가입</a></li>
+                <li><a href="map.jsp">오시는길</a></li>
             <% } %>
         </ul>
     </nav>
 </div>
 <div class="hd_wrap">
-    <a href="<%=path1 %>index.html" class="logo">
-        <img src="<%=path1 %>/images/chunjae1.png" alt="천재IT교육센터 로고타입">
+    <a href="<%=path8 %>" class="logo">
+        <img src="<%=path8 %>/images/chunjae1.png" alt="천재IT교육센터 로고타입">
     </a>
     <nav class="gnb">
         <ul class="menu">

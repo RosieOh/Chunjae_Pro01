@@ -8,14 +8,14 @@ font-family: 'iceSotong';
 /* 헤더 구역 스타일 */
 .hd { clear:both; position:relative; width: 100%; height: 90px; }
 .hd_wrap { clear: both; width: 100%;  }
-.hd_wrap:first-child {  background-color: deepskyblue; border-bottom:1px solid #333; }
+.hd_wrap:first-child {  background-color: #fff; }
 .hd_wrap:last-child { background-color: #fff; width: 1200px; 
 margin: 0 auto; }
 
 .tnb { width: 1200px; margin: 0 auto; }
 .tnb::after { content:""; clear:both; display:block; width:100%; }
 .tnb .menu { float:right; height: 40px; margin:auto; line-height: 40px; }
-.tnb .menu li { float:left; padding-left: 40px; }
+.tnb .menu li { float:left; padding-left: 40px;}
 
 .logo { display:block; width:auto; height:50px; float:left; }
 .logo img { display:block; width:auto; height: 100%; }

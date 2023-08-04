@@ -52,7 +52,3 @@
     </p>
     <p class="cp">COPYRIGHT 1981-2023 CHUNJAE EDUCATION INC. ALL RIGHTS RESERVED.</p>
 </div>
-</footer>
-</div>
-<!-- 문서 위로 이동 -->
-<a href="#" class="totop">↑</a>

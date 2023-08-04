@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>천재교육</title>
-    <%@ include file="head.jsp"%>
+    <%@ include file="head.jsp" %>
 
     <!-- 스타일 초기화 : reset.css 또는 normalize.css -->
     <link href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css" rel="stylesheet">
@@ -17,9 +17,7 @@
     <!-- 필요한 플러그인 연결 -->
     <script src="https://code.jquery.com/jquery-latest.js"></script>
     <link rel="stylesheet" href="common.css">
-
-    <link rel="stylesheet" href="hd.css">
-
+    <link rel="stylesheet" href="./hd.css">
     <style>
         /* 본문 영역 스타일 */
         .contents { clear:both; }
@@ -143,11 +141,9 @@
 </head>
 <body>
 <div class="wrap">
-    <!-- 헤더 부분 -->
-    <header class="hd" id="id">
-        <%@ include file = "header.jsp"%>
+    <header class="hd" id="hd">
+        <%@ include file="header.jsp" %>
     </header>
-
     <div class="contents" id="contents">
         <figure class="vs">
             <ul class="img_box">
@@ -347,10 +343,8 @@
             });
         </script>
     </div>
-
-    <!-- footer 부분 -->
     <footer class="ft" id="ft">
-        <%@include file="footer.jsp"%>
+        <%@ include file="footer.jsp" %>
     </footer>
 </div>
 </body>
