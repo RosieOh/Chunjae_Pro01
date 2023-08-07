@@ -1,36 +1,34 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" language="java" %>
-<%-- 1. 필요한 라이브러리 로딩 --%>
+<%-- 1. 필요한 라이브러리 가져오기 --%>
 <%@ page import="java.sql.*" %>
-<%@ page import="java.util.*" %>
-<%@ page import="java.text.*" %>
-<%@ page import="com.chunjae.dto.Board" %>
 <%@ page import="com.chunjae.db.*" %>
-<%@ page import="java.util.Date" %>
+<%@ page import="com.chunjae.dto.*" %>
 <%
     Connection con = null;
     PreparedStatement pstmt = null;
     ResultSet rs = null;
 
-    //2. DB 연결하기
+    int bno = Integer.parseInt(request.getParameter("bno"));
+
+    // 2. DB 연결하기
     DBC conn = new MariaDBCon();
     con = conn.connect();
 
-    //3. SQL을 실행하여 Result(공지사항목록)을 가져오기
-    String sql = "select * from board order by bno desc";
+    //3. SQL을 실행하여 Result(공지사항 한 레코드)을 가져오기
+    String sql = "select * from board where bno=?";
     pstmt = con.prepareStatement(sql);
+    pstmt.setInt(1, bno);
     rs = pstmt.executeQuery();
 
-    //4.가져온 목록을 boardList(공지사항목록)에 하나 씩 담기
-    List<Board> boardList = new ArrayList<>();
-    while(rs.next()){
-        Board bd = new Board();
+    //4. 가져온 한 레코드를 하나의 Board 객체에 담기
+    Board bd  = new Board();
+    if(rs.next()){
         bd.setBno(rs.getInt("bno"));
         bd.setTitle(rs.getString("title"));
         bd.setContent(rs.getString("content"));
         bd.setAuthor(rs.getString("author"));
         bd.setResdate(rs.getString("resdate"));
         bd.setCnt(rs.getInt("cnt"));
-        boardList.add(bd);
     }
     conn.close(rs, pstmt, con);
 %>
@@ -39,7 +37,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>공지사항 목록</title>
+    <title>공지사항 글 상세보기</title>
+
     <%@ include file="../head.jsp" %>
     <!-- 스타일 초기화 : reset.css 또는 normalize.css -->
     <link href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css" rel="stylesheet">
@@ -80,25 +79,18 @@
             border-bottom:1px solid #333;
             padding-left: 14px; border-top:1px solid #333; }
 
-        .tb1 .item1 { width:10%; text-align: center; }
-        .tb1 .item2 { width:65%; }
-        .tb1 .item3 { width:10%; text-align: center; }
-        .tb1 .item4 { width:15%; text-align: center; }
-
         .indata { display:inline-block; width:300px; height: 48px; line-height: 48px;
             text-indent:14px; font-size:18px; }
         .inbtn { display:block;  border-radius:100px;
-            min-width:140px; padding-left: 24px; padding-right: 24px; text-align: center;
-            line-height: 48px; background-color: #333; color:#fff; font-size: 18px; }
-        .inbtn:first-child { float:left; }
+            min-width:100px; padding-left: 24px; padding-right: 24px; text-align: center;
+            line-height: 48px; background-color: #333; color:#fff; font-size: 18px;
+            float:left; margin-right: 20px; }
         .inbtn:last-child { float:right; }
     </style>
 
     <link rel="stylesheet" href="../ft.css">
     <style>
-    .btn_group { clear:both; width:800px; margin:20px auto; }
-    .btn_group:after { content:""; display:block; width:100%; clear: both; }
-    .btn_group p {text-align: center;   line-height:3.6; }
+
     </style>
 </head>
 <body>
@@ -108,55 +100,52 @@
     </header>
     <div class="contents" id="contents">
         <div class="breadcrumb">
-            <p><a href="/">HOME</a> &gt; <a href="">공지사항</a> &gt; <span>공지사항 목록</span></p>
+            <p><a href="/">HOME</a> &gt; <a href="/board/boardList.jsp">공지사항</a> &gt; <span>공지사항 상세보기</span></p>
         </div>
         <section class="page" id="page1">
             <div class="page_wrap">
-                <h2 class="page_tit">공지사항 목록</h2>
+                <h2 class="page_tit">공지사항 상세보기</h2>
                 <hr>
+                <!-- 5. Board 객체의 내용을 출력 -->
                 <table class="tb1">
-                    <thead>
-                        <th class="item1">글번호</th>
-                        <th class="item2">글제목</th>
-                        <th class="item3">작성자</th>
-                        <th class="item4">작성일</th>
-                    </thead>
                     <tbody>
-                    <%-- 5. boardList(공지사항목록)을 테이블 태그의 tr 요소를 반복하여 출력 --%>
-                    <%
-                        SimpleDateFormat ymd = new SimpleDateFormat("yyyy-MM-dd");
-                        for(Board bd:boardList) {
-                            Date d = ymd.parse(bd.getResdate());  //날짜데이터로 변경
-                            String date = ymd.format(d);    //형식을 포함한 문자열로 변경
-                    %>
-                        <tr>
-                            <td class="item1"><%=bd.getBno() %></td>
-                            <td class="item2">
-                            <%-- 6. 로그인한 사용자만 제목 부분의 a요소에 링크 중 bno 파라미터(쿼리스트링)으로 상세보기를 요청 가능--%>
-                                <% if(sid!=null) { %>
-                                <a href="/board/getBoard.jsp?bno=<%=bd.getBno() %>"><%=bd.getTitle() %></a>
-                                <% } else { %>
-                                <span><%=bd.getTitle() %></span>
-                                <% } %>
-                            </td>
-                            <td class="item3"><%=bd.getAuthor() %></td>
-                            <td class="item4"><%=date %></td>
-                        </tr>
-                    <%
-                        }
-                    %>
+                    <tr>
+                        <th>글 번호</th>
+                        <td><%=bd.getBno() %></td>
+                    </tr>
+                    <tr>
+                        <th>글 제목</th>
+                        <td><%=bd.getTitle() %></td>
+                    </tr>
+                    <tr>
+                        <th>글 내용</th>
+                        <td><%=bd.getContent() %></td>
+                    </tr>
+                    <tr>
+                        <th>작성자</th>
+                        <td><%=bd.getAuthor() %></td>
+                    </tr>
+                    <tr>
+                        <th>작성일시</th>
+                        <td><%=bd.getResdate() %></td>
+                    </tr>
+                    <tr>
+                        <th>조회수</th>
+                        <td><%=bd.getCnt() %></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <%-- 6. 로그인한 아이디가 작성자이거나 관리자인 경우만, 글 수정과 글 삭제 기능이
+                            가능함.--%>
+                            <a href="/board/boardList.jsp" class="inbtn">글 목록</a>
+                            <% if(sid.equals("admin") || sid.equals(bd.getAuthor())) { %>
+                            <a href="/board/updateBoard.jsp?bno=<%=bd.getBno() %>" class="inbtn">글 수정</a>
+                            <a href="/board/delBoard.jsp?bno=<%=bd.getBno() %>" class="inbtn">글 삭제</a>
+                            <% } %>
+                        </td>
+                    </tr>
                     </tbody>
                 </table>
-                <div class="btn_group">
-                    <br><hr><br>
-                    <%-- 공지사항이므로 관리자만 글 추가 기능(링크)이 적용되도록 설정 --%>
-                    <% if(sid!=null && sid.equals("admin")) { %>
-                    <a href="/board/addBoard.jsp" class="inbtn">글쓰기</a>
-                    <% } else { %>
-                    <p>관리자만 공지사항의 글을 쓸 수 있습니다.<br>
-                    로그인한 사용자만 글의 상세내용을 볼 수 있습니다.</p>
-                    <% } %>
-                </div>
             </div>
         </section>
     </div>
