@@ -100,6 +100,9 @@
     .btn_group:after { content:""; display:block; width:100%; clear: both; }
     .btn_group p {text-align: center;   line-height:3.6; }
     </style>
+
+    <link rel="stylesheet" href="../jquery.dataTables.css">
+    <script src="../jquery.dataTables.js"></script>
 </head>
 <body>
 <div class="container">
@@ -113,8 +116,8 @@
         <section class="page" id="page1">
             <div class="page_wrap">
                 <h2 class="page_tit">공지사항 목록</h2>
-                <hr>
-                <table class="tb1">
+                <br><br><hr><br><br>
+                <table class="tb1" id="myTable">
                     <thead>
                         <th class="item1">글번호</th>
                         <th class="item2">글제목</th>
@@ -147,8 +150,15 @@
                     %>
                     </tbody>
                 </table>
+                <script>
+                    $(document).ready( function () {
+                        $('#myTable').DataTable({
+                            order:[[0, "desc"]]
+                        }); // 테이블 태그의 id태그가 되어야함
+                    });
+                </script>
+                <br><hr>
                 <div class="btn_group">
-                    <br><hr><br>
                     <%-- 공지사항이므로 관리자만 글 추가 기능(링크)이 적용되도록 설정 --%>
                     <% if(sid!=null && sid.equals("admin")) { %>
                     <a href="/board/addBoard.jsp" class="inbtn">글쓰기</a>
