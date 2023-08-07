@@ -28,7 +28,7 @@
         bd.setTitle(rs.getString("title"));
         bd.setContent(rs.getString("content"));
         bd.setAuthor(rs.getString("author"));
-        bd.setResdate(rs.getString("resdate"));
+        bd.setRegdate(rs.getString("regdate"));
         bd.setCnt(rs.getInt("cnt"));
         boardList.add(bd);
     }
@@ -126,7 +126,7 @@
                     <%
                         SimpleDateFormat ymd = new SimpleDateFormat("yyyy-MM-dd");
                         for(Board bd:boardList) {
-                            Date d = ymd.parse(bd.getResdate());  //날짜데이터로 변경
+                            Date d = ymd.parse(bd.getRegdate());  //날짜데이터로 변경
                             String date = ymd.format(d);    //형식을 포함한 문자열로 변경
                     %>
                         <tr>

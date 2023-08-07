@@ -27,7 +27,7 @@
         bd.setTitle(rs.getString("title"));
         bd.setContent(rs.getString("content"));
         bd.setAuthor(rs.getString("author"));
-        bd.setResdate(rs.getString("resdate"));
+        bd.setRegdate(rs.getString("regdate"));
         bd.setCnt(rs.getInt("cnt"));
     }
     conn.close(rs, pstmt, con);
@@ -127,7 +127,7 @@
                     </tr>
                     <tr>
                         <th>작성일시</th>
-                        <td><%=bd.getResdate() %></td>
+                        <td><%=bd.getRegdate() %></td>
                     </tr>
                     <tr>
                         <th>조회수</th>

@@ -27,7 +27,7 @@
         bd.setTitle(rs.getString("title"));
         bd.setContent(rs.getString("content"));
         bd.setAuthor(rs.getString("author"));
-        bd.setResdate(rs.getString("resdate"));
+        bd.setRegdate(rs.getString("resdate"));
         bd.setCnt(rs.getInt("cnt"));
     }
     conn.close(rs, pstmt, con);
