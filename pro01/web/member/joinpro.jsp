@@ -5,6 +5,9 @@
 <%@ page import="com.chunjae.dto" %>
 <%-- 시행 결과 윈도우 컴에서 DB안잡아 줘서 안됨 내일 교육가서 확인하자ㅠ --%>
 <%
+    request.setCharacterEncoding("UTF-8");
+    response.setContentType("text/html; charset=UTF-8");
+    response.setCharacterEncoding("UTF-8");
     int cnt = 0;
 
     String id = request.getParameter("id");

@@ -57,8 +57,8 @@
             <li class="item4">
                 <a href="promotion.html" class="dp1">홍보</a>
                 <ul class="sub">
-                    <li><a href="/board/boardList.jsp">언론보도</a></li>
-                    <li><a href="promotion.html#pr">광고</a></li>
+                    <li><a href="/board/boardList.jsp">공지사항</a></li>
+                    <li><a href="/qna/qnaList.jsp">Q&A</a></li>
                     <li><a href="promotion.html#sns">SNS</a></li>
                     <li><a href="promotion.html#story">천재이야기</a></li>
                 </ul>
