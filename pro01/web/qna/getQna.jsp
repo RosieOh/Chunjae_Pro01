@@ -1,5 +1,3 @@
-<%@ page import="java.text.SimpleDateFormat" %>
-<%@ page import="java.util.Date" %>
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" language="java" %>
 <%-- 1. 필요한 라이브러리 불러오기 --%>
 <%@include file="../setting/setting.jsp"%>
@@ -94,8 +92,9 @@
         .indata { display:inline-block; width:300px; height: 48px; line-height: 48px;
             text-indent:14px; font-size:18px; }
         .inbtn { display:block;  border-radius:100px;
-            min-width:80px; padding-left: 24px; padding-right: 24px; text-align: center;
-            line-height: 48px; background-color: #333; color:#fff; font-size: 18px; }
+            min-width:100px; padding-left: 24px; padding-right: 24px; text-align: center;
+            line-height: 48px; background-color: #333; color:#fff; font-size: 18px;
+            float:left; margin-right: 20px; }
         .inbtn:first-child { float:left; }
         .inbtn:last-child { float:right; }
     </style>
@@ -171,12 +170,12 @@
                                 <% } %>
                                 <% if(sid!=null && (sid.equals("admin") || sid.equals(qna.getAuthor()))) { %>
                                     <a href="/qna/updateQna.jsp?qno=<%=qna.getQno() %>" class="inbtn">질문 글 수정</a>
-                                    <a href="/qna/delQna.jsp?qno=<%=qna.getQno() %>" class="inbtn">질문 글 삭제</a>
+                                    <a href="/qna/delQna.jsp?qno=<%=qna.getQno() %>&lev=0" class="inbtn">질문 글 삭제</a>
                                 <% } %>
                             <% } else { %>
                                     <% if(sid!=null && (sid.equals("admin") || sid.equals(qna.getAuthor()))) { %>
                                         <a href="/qna/updateQna.jsp?qno=<%=qna.getQno() %>" class="inbtn">답변 수정</a>
-                                        <a href="/qna/delQna.jsp?qno=<%=qna.getQno() %>" class="inbtn">답변 삭제</a>
+                                        <a href="/qna/delQna.jsp?qno=<%=qna.getQno() %>&lev=1" class="inbtn">답변 삭제</a>
                                     <% } %>
                                 <% } %>
                                 <a href="/qna/qnaList.jsp" class="inbtn">목록</a>
@@ -184,13 +183,7 @@
                     </tr>
                     </tbody>
                 </table>
-                <script>
-                    $(document).ready( function () {
-                        $('#myTable').DataTable({
-                            order:[[0, "desc"]]
-                        }); // 테이블 태그의 id태그가 되어야함
-                    });
-                </script>
+
                 <br><hr>
                 <div class="btn_group">
                     <% if(sid!=null) { %>

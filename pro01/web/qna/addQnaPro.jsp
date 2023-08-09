@@ -1,42 +1,53 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" language="java" %>
 <%-- 1. 필요한 sql, db 패키지 임포트  --%>
 <%@ page import="java.sql.*" %>
-<%@ page import="com.chunjae.vo.*" %>
-<%@ page import="com.chunjae.db.DBC" %>
-<%@ page import="com.chunjae.db.MariaDBCon" %>
+<%@ page import="com.chunjae.db.*" %>
+<%@ include file="../setting/setting.jsp"%>
+<%@include file="../setting/encoding.jsp"%>
 <%-- 2. 인코딩 및 보내온 데이터 받기 --%>
 <%
-    request.setCharacterEncoding("UTF-8");
-    response.setContentType("text/html; charset=UTF-8");
-    response.setCharacterEncoding("UTF-8");
+    int lev = Integer.parseInt(request.getParameter("lev"));
+    int par = Integer.parseInt(request.getParameter("par"));
     String title = request.getParameter("title");
-    String author = request.getParameter("author");
     String content = request.getParameter("content");
+    String author = request.getParameter("author");
 
     //3. DB 접속
-    Connection conn = null;
+    Connection con = null;
     PreparedStatement pstmt = null;
-    DBC con = new MariaDBCon();
-    conn = con.connect();
+    DBC conn = new MariaDBCon();
+    con = conn.connect();
 
-    //4. SQL 구문 처리(insert문)
-    String sql = "insert into qna(title, content, author) values (?, ?, ?)";
-    pstmt = conn.prepareStatement(sql);
+    //4. SQL 실행 및 실행결과 리턴
+    String sql = "insert into qna(title, content, author, lev, par) values(?, ?, ?, ?, ?)";
+    pstmt = con.prepareStatement(sql);
     pstmt.setString(1, title);
     pstmt.setString(2, content);
     pstmt.setString(3, author);
+    pstmt.setInt(4, lev);
+    pstmt.setInt(5, par);
 
-    //5. 처리된 결과의 건수를 반환받아 글등록이 성공되었으면, 목록 페이지로 이동(boardList.jsp)
-    //실패하면, 글쓰기(addBoard.jsp) 창으로 이동
     int cnt = pstmt.executeUpdate();
-    String script = "<script>";
-    script += "history.go(-1);";
-    script += "</script>";
-    if(cnt>0){
-        response.sendRedirect("qnaList.jsp");
-    } else {
-        //response.sendRedirect("addBoard.jsp");
-        out.println(script);
+
+    if (lev==0) {
+        sql = "update qna set par=qno where par=0 and lev=0";
+        pstmt.close();
+        pstmt = con.prepareStatement(sql);
+        pstmt.executeUpdate();
+        cnt++;
     }
-    con.close(pstmt, conn);
+
+    if(cnt==2) {
+        System.out.println("질문 글이 등록되었습니다.");
+        response.sendRedirect("/qna/qnaList.jsp");
+    } else if(cnt==1){
+        System.out.println("답변 글이 등록 되었습니다.");
+        response.sendRedirect("/qna/qnaList.jsp");
+    } else {
+        System.out.println("질문 및 답변 등록이 실패되었습니다.");
+        response.sendRedirect("/qna/addQna.jsp?lev="+lev+"&par="+par);
+        //out.println("<script>history.go(-1);</script>");
+    }
+    conn.close(pstmt, con);
+
 %>

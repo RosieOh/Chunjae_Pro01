@@ -6,13 +6,14 @@
 <%@ page import="com.chunjae.db.*" %>
 <%@ page import="com.chunjae.vo.*" %>
 <%@ page import="java.util.Date" %>
+<%@ include file="../setting/encoding.jsp"%>
 <%
     Connection conn = null;
     PreparedStatement pstmt = null;
     ResultSet rs = null;
     DBC con = new MariaDBCon();
     conn = con.connect();
-    String sql = "SELECT a.qno AS qno, a.title AS title, a.content AS content, a.author AS author, a.resdate AS resdate, a.cnt AS cnt, a.lev AS lev, a.par AS par, b.name AS name FROM qna a, member b WHERE a.author=b.id ORDER BY a.par DESC, a.lev ASC, a.qno ASC;\n";
+    String sql = "SELECT a.qno AS qno, a.title AS title, a.content AS content, a.author AS author, a.resdate AS resdate, a.cnt AS cnt, a.lev AS lev, a.par AS par, b.name AS name FROM qna a, member b WHERE a.author=b.id ORDER BY a.par DESC, a.lev ASC, a.qno ASC";
     pstmt = conn.prepareStatement(sql);
     rs = pstmt.executeQuery();
 
@@ -155,7 +156,7 @@
                         <br><hr>
                         <div class="btn_group">
                             <% if(sid!=null) { %>
-                            <a href="/qna/addQna.jsp" class="inbtn">질문하기</a>
+                            <a href="/qna/addQna.jsp?lev=0&par=0" class="inbtn">질문하기</a>
                             <% } else { %>
                             <p>관리자만 공지사항의 글을 쓸 수 있습니다.<br>
                                 로그인한 사용자만 글의 상세내용을 볼 수 있습니다.</p>

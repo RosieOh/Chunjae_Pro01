@@ -5,6 +5,7 @@
       <map>
         <entry key="file://$PROJECT_DIR$/web/board/boardList.jsp" value="file://$PROJECT_DIR$/web/board" />
         <entry key="file://$PROJECT_DIR$/web/member/myPage.jsp" value="file://$PROJECT_DIR$/web/member" />
+        <entry key="file://$PROJECT_DIR$/web/qna/addQnaPro.jsp" value="file://$PROJECT_DIR$/web/qna" />
         <entry key="file://$PROJECT_DIR$/web/qna/getQna.jsp" value="file://$PROJECT_DIR$/web/qna" />
         <entry key="file://$PROJECT_DIR$/web/qna/qnaList.jsp" value="file://$PROJECT_DIR$/web/qna" />
         <entry key="file://$PROJECT_DIR$/web/qna/updateQna.jsp" value="file://$PROJECT_DIR$/web/qna" />

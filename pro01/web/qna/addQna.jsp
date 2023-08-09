@@ -1,4 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" language="java" %>
+<%@ include file="../setting/setting.jsp" %>
+<%@ include file="../setting/encoding.jsp"%>
 <%
     int lev = Integer.parseInt(request.getParameter("lev"));
     int par = Integer.parseInt(request.getParameter("par"));
@@ -10,6 +12,7 @@
         sel = "답변";
     }
 %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -86,28 +89,29 @@
             <div class="page_wrap">
                 <h2 class="page_tit">질문 및 답변 글쓰기</h2>
                 <hr>
+                <%-- table>tbody>tr*3>(th>label)+(td+input)--%>
                 <form action="addQnaPro.jsp" method="post">
                     <table class="tb1">
                         <tbody>
                         <tr>
-                            <th><label for="title">글 제목</label></th>
+                            <th><label for="title">제목</label></th>
                             <td>
-                                <input type="text" name="title" id="title" class="indata" required>
+                                <input type="text" name="title" id="title" class="indata" maxlength="98" required>
+                                <input type="hidden" name="lev" id="lev" value="<%=lev %>">
+                                <input type="hidden" name="par" id="par" value="<%=par %>">
                                 <input type="hidden" name="author" id="author" value="<%=sid %>">
                             </td>
                         </tr>
                         <tr>
-                            <th><label for="content">글 내용</label></th>
+                            <th><label for="content">내용</label></th>
                             <td><textarea rows="10" cols="80" name="content" id="content" class="indata2" maxlength="990" required></textarea></td>
-                        </tr>
-                        <tr>
-                            <td colspan="2">
-                                <input type="submit" value="글쓰기" class="inbtn">
-                                <input type="reset" value="취소" class="inbtn">
-                            </td>
                         </tr>
                         </tbody>
                     </table>
+                    <div class="btn_group">
+                        <input type="submit" value=<%=sel%>"등록" class="inbtn">
+                        <a href="/qna/qnaList.jsp" class="inbtn">글 목록</a>
+                    </div>
                 </form>
             </div>
         </section>
