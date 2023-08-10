@@ -65,18 +65,13 @@
         .breadcrumb a { color:#fff; }
         .frm { clear:both; width:1200px; margin:0 auto; padding-top: 80px; }
 
-        .tb1 { width:800px; margin:50px auto; }
+        .tb1 { width:1000px; margin:50px auto; text-align: center;}
         .tb1 th { line-height:32px; padding-top:8px; padding-bottom:8px;
             border-top:1px solid #333; border-bottom:1px solid #333;
-            background-color:deepskyblue; color:#fff; }
+            background-color:deepskyblue; color:#fff; text-align: center;}
         .tb1 td {line-height:32px; padding-top:8px; padding-bottom:8px;
             border-bottom:1px solid #333;
-            padding-left: 14px; border-top:1px solid #333; }
-
-        .tb1 .item1 { width:10%; text-align: center; }
-        .tb1 .item2 { width:65%; }
-        .tb1 .item3 { width:10%; text-align: center; }
-        .tb1 .item4 { width:15%; text-align: center; }
+            padding-left: 14px; border-top:1px solid #333; text-align: center; }
 
         .indata { display:inline-block; width:300px; height: 48px; line-height: 48px;
             text-indent:14px; font-size:18px; }
@@ -85,18 +80,19 @@
             line-height: 48px; background-color: #333; color:#fff; font-size: 18px; }
         .inbtn:first-child { float:left; }
         .inbtn:last-child { float:right; }
+        .ans {display: none;}
     </style>
 
-    <style>
-        @import url('http://fonts.googleapis.com/earlyaccess/notosanskr.css');
-        ul, li, p { list-style:none; padding:0; margin:0; }
-        .faqlist { font-family:'Noto Sans KR', sans-serif; margin-bottom:20px; }
-        .faqlist .qa_li { position:relative; display:block; padding:0; border-bottom:1px solid #ededed; cursor:pointer; }
-        .faqlist .qa_li:first-child { border-top:1px solid #a6a6a6; }
-        .qa_li .question { position:relative; display:block; padding:25px 100px 25px 120px; background:url('https://happyjung.diskn.com/data/lecture/icon_jquery_faq2_icon_q.png') 40px center no-repeat; }
-        .qa_li .question .iconDiv { position:absolute; right:40px; top:50%; -webkit-transform:translateY(-50%); -moz-transform:translateY(-50%); -o-transform:translateY(-50%); -ms-transform:translateY(-50%); transform:translateY(-50%); }
-        .qa_li .ans{ position:relative; display:none; padding:40px 120px; font-size:16px; color:#222; line-height:28px; background:#f6f6f6 url('https://happyjung.diskn.com/data/lecture/icon_jquery_faq2_icon_a.png') 40px 40px no-repeat; border-top:1px solid #e4e4e4; }
-    </style>
+<%--        <style>--%>
+<%--        @import url('http://fonts.googleapis.com/earlyaccess/notosanskr.css');--%>
+<%--        ul, li, p { list-style:none; padding:0; margin:0; }--%>
+<%--        .faqlist { font-family:'Noto Sans KR', sans-serif; margin-bottom:20px; }--%>
+<%--        .faqlist .qa_li { position:relative; display:block; padding:0; border-bottom:1px solid #ededed; cursor:pointer; }--%>
+<%--        .faqlist .qa_li:first-child { border-top:1px solid #a6a6a6; }--%>
+<%--        .qa_li .question { position:relative; display:block; padding:25px 100px 25px 120px; background:url('https://happyjung.diskn.com/data/lecture/icon_jquery_faq2_icon_q.png') 40px center no-repeat; }--%>
+<%--        .qa_li .question .iconDiv { position:absolute; right:40px; top:50%; -webkit-transform:translateY(-50%); -moz-transform:translateY(-50%); -o-transform:translateY(-50%); -ms-transform:translateY(-50%); transform:translateY(-50%); }--%>
+<%--        .qa_li .ans{ position:relative; display:none; padding:40px 120px; font-size:16px; color:#222; line-height:28px; background:#f6f6f6 url('https://happyjung.diskn.com/data/lecture/icon_jquery_faq2_icon_a.png') 40px 40px no-repeat; border-top:1px solid #e4e4e4; }--%>
+<%--    </style>--%>
     <link rel="stylesheet" href="../ft.css">
     <style>
         .btn_group { clear:both; width:800px; margin:20px auto; }
@@ -119,34 +115,59 @@
         <section class="page" id="page1">
             <div class="page_wrap">
                 <h2 class="page_tit">FAQ 목록</h2>
-<%--                <div class="faqlist" id="myTable">--%>
-<%--                    <ul class="faqlist">--%>
-<%--                        <% for(Faq faq : faqlist) { %>--%>
-<%--                        <li>--%>
-<%--                            <div class="que"><%=faq.getQuestion()%></div>--%>
-<%--                            <div class="ans"><%=faq.getAnswer()%></div>--%>
-<%--                        </li>--%>
-<%--                        <% } %>--%>
-<%--                    </ul>--%>
-<%--                </div>--%>
-                <ul class="faqlist">
-                    <% for(Faq faq : faqlist) { %>
-                    <li class="qa_li">
-                        <div class="question">
-                            <p class><%=faq.getQuestion()%></p>
-                            <p class="iconDiv"><img src="https://happyjung.diskn.com/data/lecture/icon_jquery_faq2_icon_arrow.png"></p>
-                        </div>
-                        <div class="ans"><p><%=faq.getAnswer()%></p></div>
-                    </li>
-                    <% } %>
-                </ul>
+                <table class="tb1" id="myTable">
+                        <thead>
+                            <th class="item1">번호</th>
+                            <th class="item3">자주 묻는 질문</th>
+                        </thead>
+                        <tbody>
+                            <% for(Faq faq : faqlist) { %>
+                        <tr>
+                            <td><%= faq.getFno()%></td>
+                            <td>
+                                <ul class="faqlist">
+                                    <li>
+                                        <div class="que"><%=faq.getQuestion()%></div>
+                                        <div class="ans"><%=faq.getAnswer()%></div>
+                                    </li>
+                                </ul>
+                                <% } %>
+                            </td>
+                        </tr>
+                        </tbody>
+                </table>
+<%--                <script>--%>
+<%--                    $(document).ready( function () {--%>
+<%--                        $('#myTable').DataTable({--%>
+<%--                            order:[[0, "desc"]]--%>
+<%--                        }); // 테이블 태그의 id태그가 되어야함--%>
+<%--                    });--%>
+<%--                </script>--%>
                 <script>
                     $(document).ready(function() {
-                        $("faqlist li").click(function () {
-                            $(this).find(".ans").slideToggle(500);
+                        $(".faqlist li").click(function (){
+                            $(this).find(".ans").slideToggle(100);
                         });
                     });
                 </script>
+<%--                <ul class="faqlist">--%>
+<%--                    <% for(Faq faq : faqlist) { %>--%>
+<%--                    <li class="qa_li">--%>
+<%--                        <div class="question">--%>
+<%--                            <p class><%=faq.getQuestion()%></p>--%>
+<%--                            <p class="iconDiv"><img src="https://happyjung.diskn.com/data/lecture/icon_jquery_faq2_icon_arrow.png"></p>--%>
+<%--                        </div>--%>
+<%--                        <div class="ans"><p><%=faq.getAnswer()%></p></div>--%>
+<%--                    </li>--%>
+<%--                    <% } %>--%>
+<%--                    <script>--%>
+<%--                        $(document).ready(function() {--%>
+<%--                            $(".faqlist li").click(function (){--%>
+<%--                                $(this).find(".ans").slideToggle(500);--%>
+<%--                            });--%>
+<%--                        });--%>
+<%--                    </script>--%>
+<%--                </ul>--%>
             </div>
         </section>
     </div>

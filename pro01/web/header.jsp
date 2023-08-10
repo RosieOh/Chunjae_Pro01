@@ -60,7 +60,8 @@
                     <li><a href="/board/boardList.jsp">공지사항</a></li>
                     <li><a href="/qna/qnaList.jsp">Q&A</a></li>
                     <li><a href="/faq/faqList.jsp">FAQ</a></li>
-                    <li><a href="promotion.html#story">천재이야기</a></li>
+                    <li><a href="/faq/online.jsp">온라인 상담</a></li>
+                    <li><a href="/">천재이야기</a></li>
                 </ul>
             </li>
             <li class="item5">

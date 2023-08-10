@@ -26,3 +26,27 @@ web 디렉토리에 복사하여 붙여넣기</p>
 header class="hd" id="hd">
     <%@ include file = "header.jsp"%>
 </p>
+
+
+<h2>암호화 패턴</h2>
+activatetin.jar
+
+SHA256 / 암호화(encrypt)만 가능
+AES256 / 암호화(encrypt)와 복호화 (decrypt)가 가능
+
+암호화 패턴 : Base64, MD5, SHA256, HEX~~~~
+
+1234
+
+A1B2C3D4 => AXBXCXDX
+
+C3D4A1B2 => CXDXAXBX
+
+23340112
+
+980920-1234567
+2
+6+2+2+4+4+0 = 18 / 11 = 7 
+
+
+

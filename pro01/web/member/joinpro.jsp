@@ -3,6 +3,7 @@
 <%@ page import="java.util.*" %>
 <%@ page import="com.chunjae.db.*" %>
 <%@ page import="com.chunjae.dto" %>
+<%@ page import="com.chunjae.util.AES256" %>
 <%-- 시행 결과 윈도우 컴에서 DB안잡아 줘서 안됨 내일 교육가서 확인하자ㅠ --%>
 <%
     request.setCharacterEncoding("UTF-8");
@@ -12,6 +13,7 @@
 
     String id = request.getParameter("id");
     String pw = request.getParameter("pw");
+    pw = AES256.sha256(pw);
     String name = request.getParameter("name");
     String email = request.getParameter("email");
     String tel = request.getParameter("tel");
